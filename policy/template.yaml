@@ -22,6 +22,6 @@ spec:
           result := response.responses[_]
           result[1] > 0
 
-          msg := sprintf("Image %v contains %v vulnerabilities", [result[0], result[1]])
+          msg := sprintf("Image %v blocked due to policy violation", [result[0]])
         }
         

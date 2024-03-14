@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bad-deployment
+  labels:
+    app: bad-deployment
+spec:
+  replicas: 1 # testing purposes only
+  selector:
+    matchLabels:
+      app: bad-deployment
+  template:
+    metadata:
+      labels:
+        app: bad-deployment
+    spec:
+      containers:
+      - name: bad
+        image: bash@sha256:020031cbba4cccf13061c0c089b52eb8ff067a15033f2b9f839ea503d60ec037
