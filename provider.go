@@ -8,11 +8,15 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 	"time"
 
+	"github.com/go-logr/logr"
+	"github.com/go-logr/zapr"
 	"github.com/open-policy-agent/frameworks/constraint/pkg/externaldata"
+	"go.uber.org/zap"
 )
 
 const (
@@ -20,12 +24,20 @@ const (
 	apiVersion = "externaldata.gatekeeper.sh/v1alpha1"
 )
 
+var log logr.Logger
+
 func main() {
-	fmt.Println("starting server...")
+	zapLog, err := zap.NewDevelopment()
+	if err != nil {
+		panic(fmt.Sprintf("unable to initialize logger: %v", err))
+	}
+	log = zapr.NewLogger(zapLog)
+	log.Info("starting server...")
 
 	// load Gatekeeper's CA certificate
 	caCert, err := os.ReadFile("/tmp/gatekeeper/ca.crt")
 	if err != nil {
+		log.Info("error reading file", err)
 		panic(err)
 	}
 
@@ -34,6 +46,8 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/validate", processTimeout(validate, timeout))
+
+	log.Info("initialing server...")
 
 	server := &http.Server{
 		Addr:              ":8090",
@@ -46,12 +60,23 @@ func main() {
 		},
 	}
 
+	log.Info("ListenAndServeTLS")
 	if err := server.ListenAndServeTLS("/etc/ssl/certs/server.crt", "/etc/ssl/certs/server.key"); err != nil {
+		log.Error(err, "ListenAndServeTLS - Error")
 		panic(err)
 	}
 }
 
+// A Response struct to map the Entire Response
+type Response struct {
+	Vulnerabilities []string `json:"vulnerabilities"`
+	CertifyBads     []string `json:"certifyBads"`
+	SlsaList        []string `json:"SlsaList"`
+	SbomList        []string `json:"SbomList"`
+}
+
 func validate(w http.ResponseWriter, req *http.Request) {
+	log.Info("validate request received")
 	// only accept POST requests
 	if req.Method != http.MethodPost {
 		sendResponse(nil, "only POST is allowed", w)
@@ -77,27 +102,66 @@ func validate(w http.ResponseWriter, req *http.Request) {
 	// iterate over all keys
 	for _, key := range providerRequest.Request.Keys {
 		// Providers should add a caching mechanism to avoid extra calls to external data sources.
+		log.Info("key received:" + key)
 
-		//TODO: call Guac
+		splitImage := strings.Split(key, "@")
 
-		// following checks are for testing purposes only
-		// check if key contains "_systemError" to trigger a system error
-		if strings.HasSuffix(key, "_systemError") {
-			sendResponse(nil, "testing system error", w)
-			return
+		if len(splitImage) != 2 {
+			log.Info("split failed")
+			results = append(results, externaldata.Item{
+				Key:   key,
+				Error: fmt.Errorf("expecting digest of the image").Error(),
+			})
+			continue
+		}
+		log.Info("split: " + splitImage[1])
+		response, err := http.Get("http://rest-api.default.svc.cluster.local:8081/query/artInfo/" + url.QueryEscape(splitImage[1]))
+		if err != nil {
+			log.Error(err, "response error")
+
+			results = append(results, externaldata.Item{
+				Key:   key,
+				Error: err.Error(),
+			})
+			continue
 		}
 
-		// check if key contains "error_" to trigger an error
-		if strings.HasPrefix(key, "error_") {
+		responseData, err := io.ReadAll(response.Body)
+		if err != nil {
+			log.Error(err, "response read error")
 			results = append(results, externaldata.Item{
 				Key:   key,
-				Error: key + "_invalid",
+				Error: err.Error(),
 			})
-		} else if !strings.HasSuffix(key, "_valid") {
-			// valid key will have "_valid" appended as return value
+			continue
+		}
+
+		var responseObject Response
+		json.Unmarshal(responseData, &responseObject)
+		log.Info("responseObject returned")
+
+		if len(responseObject.Vulnerabilities) > 0 {
+			log.Info("found Vulnerabilities")
 			results = append(results, externaldata.Item{
 				Key:   key,
-				Value: key + "_valid",
+				Value: len(responseObject.Vulnerabilities),
+			})
+		} else if len(responseObject.CertifyBads) > 0 {
+			log.Info("found CertifyBads")
+			results = append(results, externaldata.Item{
+				Key:   key,
+				Value: len(responseObject.CertifyBads),
+			})
+		} else if len(responseObject.SbomList) == 0 {
+			log.Info("found no sbom")
+			results = append(results, externaldata.Item{
+				Key:   key,
+				Value: len(responseObject.SbomList),
+			})
+		} else {
+			results = append(results, externaldata.Item{
+				Key:   key,
+				Value: 0,
 			})
 		}
 	}
