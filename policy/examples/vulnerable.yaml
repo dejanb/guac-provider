@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: valid-deployment
+  name: vulnerable-deployment
   labels:
-    app: valid-deployment
+    app: vulnerable-deployment
 spec:
   replicas: 1 # testing purposes only
   selector:
     matchLabels:
-      app: valid-deployment
+      app: vulnerable-deployment
   template:
     metadata:
       labels:
-        app: valid-deployment
+        app: vulnerable-deployment
     spec:
       containers:
-      - name: valid
+      - name: vulnerable
         image: ghcr.io/guacsec/vul-image:latest@sha256:b6f1a6e034d40c240f1d8b0a3f5481aa0a315009f5ac72f736502939419c1855

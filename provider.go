@@ -108,32 +108,22 @@ func validate(w http.ResponseWriter, req *http.Request) {
 
 		if len(splitImage) != 2 {
 			log.Info("split failed")
-			results = append(results, externaldata.Item{
-				Key:   key,
-				Error: fmt.Errorf("expecting digest of the image").Error(),
-			})
-			continue
+			sendResponse(nil, "split key failed", w)
+			return
 		}
 		log.Info("split: " + splitImage[1])
 		response, err := http.Get("http://rest-api.default.svc.cluster.local:8081/query/artInfo/" + url.QueryEscape(splitImage[1]))
 		if err != nil {
 			log.Error(err, "response error")
-
-			results = append(results, externaldata.Item{
-				Key:   key,
-				Error: err.Error(),
-			})
-			continue
+			sendResponse(nil, fmt.Sprintf("ERROR getting response from GUAC: %v", err), w)
+			return
 		}
 
 		responseData, err := io.ReadAll(response.Body)
 		if err != nil {
 			log.Error(err, "response read error")
-			results = append(results, externaldata.Item{
-				Key:   key,
-				Error: err.Error(),
-			})
-			continue
+			sendResponse(nil, fmt.Sprintf("ERROR reading response data: %v", err), w)
+			return
 		}
 
 		var responseObject Response
@@ -141,22 +131,28 @@ func validate(w http.ResponseWriter, req *http.Request) {
 		log.Info("responseObject returned")
 
 		if len(responseObject.Vulnerabilities) > 0 {
-			log.Info("found Vulnerabilities")
+			log.Info("found Vulnerabilities:" + strings.Join(responseObject.Vulnerabilities, ","))
 			results = append(results, externaldata.Item{
 				Key:   key,
 				Value: len(responseObject.Vulnerabilities),
 			})
 		} else if len(responseObject.CertifyBads) > 0 {
-			log.Info("found CertifyBads")
+			log.Info("found CertifyBad:" + responseObject.CertifyBads[0])
 			results = append(results, externaldata.Item{
 				Key:   key,
 				Value: len(responseObject.CertifyBads),
 			})
 		} else if len(responseObject.SbomList) == 0 {
-			log.Info("found no sbom")
+			log.Info("SBOM not found")
 			results = append(results, externaldata.Item{
 				Key:   key,
-				Value: len(responseObject.SbomList),
+				Value: 1,
+			})
+		} else if len(responseObject.SlsaList) == 0 {
+			log.Info("SLSA not found")
+			results = append(results, externaldata.Item{
+				Key:   key,
+				Value: 1,
 			})
 		} else {
 			results = append(results, externaldata.Item{

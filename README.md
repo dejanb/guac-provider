@@ -27,7 +27,12 @@ git checkout issue-1734
 
 go run ./cmd/guacone collect files <path to cdx_vuln.json>
 
+go run ./cmd/guacone collect files <guac-data/docs>
+
 go run ./cmd/guacone certifier osv
+
+go run ./cmd/guacone certify package "critical vulnerability reported by maintainer" "pkg:alpine/alpine-baselayout@3.2.0-r18?arch=x86_64&upstream=alpine-baselayout&distro=alpine-3.15.6"
+
 ```
 
 
