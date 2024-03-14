@@ -1,0 +1,636 @@
+{
+  "_type": "https://in-toto.io/Statement/v0.1",
+  "predicateType": "https://slsa.dev/provenance/v0.2",
+  "subject": [
+    {
+      "name": "guacrest-darwin-arm64",
+      "digest": {
+        "sha256": "0ea6c5ec80900ad1b96c604f9311b2335292a35d6ff1b9d955354d66ce0216c5"
+      }
+    },
+    {
+      "name": "guaccsub-windows-amd64.exe",
+      "digest": {
+        "sha256": "7cfdc90abbc314b48a9d2e89e7eed81e749396867dfcca3949df2316ca61813e"
+      }
+    },
+    {
+      "name": "guaccsub-darwin-amd64",
+      "digest": {
+        "sha256": "c3b42d0d770ec6cbc0bc6e1b5087f32660eeb25cc0c6927bf212040451c4c308"
+      }
+    },
+    {
+      "name": "guaccollect-windows-amd64.exe",
+      "digest": {
+        "sha256": "ab2c0489974bb7fa376441e893bd3d9ecc1bc5f3bd109bc5ca4ef21fc98e8c92"
+      }
+    },
+    {
+      "name": "guacgql-windows-amd64.exe",
+      "digest": {
+        "sha256": "8f7e21dfaa80e0bbeeafaa6c1a3c2c0990ca6d8b8bbaf7e40099bd61de91027a"
+      }
+    },
+    {
+      "name": "guacingest-windows-amd64.exe",
+      "digest": {
+        "sha256": "9492a874c2187bffc7f91084381218d0c4bffe2dc227904fccdee7809898647f"
+      }
+    },
+    {
+      "name": "guacone-windows-amd64.exe",
+      "digest": {
+        "sha256": "d5eba8bc975ffd2413cb82f073bde6a79c3718b8ebb5c84e636ed009b60d3bdc"
+      }
+    },
+    {
+      "name": "guacrest-windows-amd64.exe",
+      "digest": {
+        "sha256": "12194b9885309975761810f08ed2219b18f48a9a9fbf93caa24b1024362f2e2a"
+      }
+    },
+    {
+      "name": "guaccollect-linux-amd64",
+      "digest": {
+        "sha256": "dd47c3b1a778496a0435a2e8f41c20e8b4556ed28db376eb21364334a1a88134"
+      }
+    },
+    {
+      "name": "guaccsub-linux-amd64",
+      "digest": {
+        "sha256": "4f6c0e3081f6c1731d83a285286ab5db19a9462a325b23eaefeff18449ca6565"
+      }
+    },
+    {
+      "name": "guacgql-linux-amd64",
+      "digest": {
+        "sha256": "c7b8f14f53773905f65bdc4bc7008f181eeaf544efb73488d193af711b055d91"
+      }
+    },
+    {
+      "name": "guacingest-linux-amd64",
+      "digest": {
+        "sha256": "a0747d334f7d1ae004c27ae5f8785d792c8a32e52a14cb2da0b43d943d6a9c5e"
+      }
+    },
+    {
+      "name": "guacone-linux-amd64",
+      "digest": {
+        "sha256": "fc8c062915bc7bdf7fe544c4f6a58fe1b2a093ad269225789f2d4d7cb8b76c07"
+      }
+    },
+    {
+      "name": "guacrest-linux-amd64",
+      "digest": {
+        "sha256": "40b43d5d9d029136a9a3caf614ee3a87659479bcf03ce5fffee701eb3888a7ee"
+      }
+    },
+    {
+      "name": "guaccollect-linux-arm64",
+      "digest": {
+        "sha256": "e584473e52c55566dcf5c3c6b48812527997d5a6b47c555852f8a8dd54963511"
+      }
+    },
+    {
+      "name": "guaccsub-linux-arm64",
+      "digest": {
+        "sha256": "7f3dc8f46b2e4dd19ac865042ab74ecdb7a98962adfec6c04ee49dac247adb10"
+      }
+    },
+    {
+      "name": "guacgql-linux-arm64",
+      "digest": {
+        "sha256": "91a31e2694afeef8c1b9dfaba64f236186b6d9f35a1c568935db0d7bff481f70"
+      }
+    },
+    {
+      "name": "guacingest-linux-arm64",
+      "digest": {
+        "sha256": "13eecd6324ee78ec812a031cb5a33f920f92d8ed9e6143b4d4bd1083c84e97d6"
+      }
+    },
+    {
+      "name": "guacone-linux-arm64",
+      "digest": {
+        "sha256": "a902bf800e5f43b0885cdf29a3ac076810d20ffba9bf9756a5ef4df9b593031b"
+      }
+    },
+    {
+      "name": "guaccollect-darwin-amd64",
+      "digest": {
+        "sha256": "cf70efe61b76db238e59f5172c8e9ac2148a521e162466c34c3dad2e75aa9cd7"
+      }
+    },
+    {
+      "name": "guacingest-darwin-amd64",
+      "digest": {
+        "sha256": "cc6d1dc2a17c97635e00aa2197bc84fddc5780bc06745beb10f37425c3f74592"
+      }
+    },
+    {
+      "name": "guacgql-darwin-amd64",
+      "digest": {
+        "sha256": "14b3d996ca788ec2b4c5ff9eeece0cb61309cbc1ae90381e0b9bfd60c0bbd3ef"
+      }
+    },
+    {
+      "name": "guacone-darwin-amd64",
+      "digest": {
+        "sha256": "a8a8f4d12f29d5623a33cfd8b1cc810b4e20ccc722b807965a4624c8e51fcf6c"
+      }
+    },
+    {
+      "name": "guacrest-darwin-amd64",
+      "digest": {
+        "sha256": "c79464f785517b1288a471209f6300ca6bba365c8d1c1a521f73dd08da01af59"
+      }
+    },
+    {
+      "name": "guaccsub-linux-arm",
+      "digest": {
+        "sha256": "c8299cd95fb6de9a7deb120651433bce178d1383d682967a764a5df96b9067a9"
+      }
+    },
+    {
+      "name": "guaccollect-linux-arm",
+      "digest": {
+        "sha256": "5134fb6583b8a91d15c8e35378cf29428cec7a11ab8c563b0777a6c5e232c7a7"
+      }
+    },
+    {
+      "name": "guacgql-linux-arm",
+      "digest": {
+        "sha256": "133a5e98f6ca861ad543521d4f4a4fce51f7e6236d6ac2f98cc4c61b2804fcc5"
+      }
+    },
+    {
+      "name": "guacingest-linux-arm",
+      "digest": {
+        "sha256": "e8374a05237986319d5c883cc86907aa294bc8791c6be1397c5ff00cd81ec186"
+      }
+    },
+    {
+      "name": "guacone-linux-arm",
+      "digest": {
+        "sha256": "c0c329fccea2f0f4739585be663dfc79d44a832b7aee55d414663822339e8cda"
+      }
+    },
+    {
+      "name": "guacrest-linux-arm",
+      "digest": {
+        "sha256": "9512e5659e575bd1fa3df697a3e19eccf7bca8433a24ed318a65b7600ed837b6"
+      }
+    },
+    {
+      "name": "guacrest-linux-arm64",
+      "digest": {
+        "sha256": "a964ef5291d4fc82b14e8aed3895fff56b18c729c038c3630f75ce0645e7ad4d"
+      }
+    },
+    {
+      "name": "guacrest-darwin-arm64.spdx.sbom.json",
+      "digest": {
+        "sha256": "9323539144c77772574ddb7587f2a141c59c313e6cdb3fe991ec2191cfb389bf"
+      }
+    },
+    {
+      "name": "guaccsub-windows-amd64.exe.spdx.sbom.json",
+      "digest": {
+        "sha256": "e432d614b639cf863f054594c5b4b717bcb10a5849b9447a28b270e3bceeda40"
+      }
+    },
+    {
+      "name": "guaccsub.spdx.sbom.json",
+      "digest": {
+        "sha256": "6adf1422402d5cd9c5e7b16549ae26751bd31e34402923f3f6b1b4307f366fd1"
+      }
+    },
+    {
+      "name": "guaccollect-windows-amd64.exe.spdx.sbom.json",
+      "digest": {
+        "sha256": "8c1725a965d4151434493dd8202aadfa16cb87efb999eacf38e05c4e39f97c8f"
+      }
+    },
+    {
+      "name": "guacgql-windows-amd64.exe.spdx.sbom.json",
+      "digest": {
+        "sha256": "4043397ccc11145be297f2dfdcc3ebc57c620bcd8dbe8af3d5df6c3560ca63e2"
+      }
+    },
+    {
+      "name": "guacingest-windows-amd64.exe.spdx.sbom.json",
+      "digest": {
+        "sha256": "a7fc1c37228a57d5a831b348cee3b2bf077bf935bfa5757fbbc434a5b384147d"
+      }
+    },
+    {
+      "name": "guacone-windows-amd64.exe.spdx.sbom.json",
+      "digest": {
+        "sha256": "a19cecd8ddd9629968c2d2a31ef3522641c5b5adeac0686752a131969a657f6b"
+      }
+    },
+    {
+      "name": "guacrest-windows-amd64.exe.spdx.sbom.json",
+      "digest": {
+        "sha256": "53079ca6bc8191dd43b18df264177a1ff159f2ea0d54aeb9060ce889dca8b31e"
+      }
+    },
+    {
+      "name": "guaccollect-linux-amd64.spdx.sbom.json",
+      "digest": {
+        "sha256": "5adda3982b2f67f3d8fe51774df7120bdf2c99b56c6ad135e1a14dba48ff691a"
+      }
+    },
+    {
+      "name": "guaccsub-linux-amd64.spdx.sbom.json",
+      "digest": {
+        "sha256": "13b1c50ad5cf2e6e7cba2d1f960e4d9a8d495aa9803fee6bb851c91ec123422d"
+      }
+    },
+    {
+      "name": "guacgql-linux-amd64.spdx.sbom.json",
+      "digest": {
+        "sha256": "cb4a275ce21371f6f71e2a958e394349e93a45e1de081795709fd6efbedfaa16"
+      }
+    },
+    {
+      "name": "guacingest-linux-amd64.spdx.sbom.json",
+      "digest": {
+        "sha256": "7b5207f9b9c875c4e6cb22f5d3aff3a513070e7d21b33832b8d0651d61a5fd2d"
+      }
+    },
+    {
+      "name": "guacone-linux-amd64.spdx.sbom.json",
+      "digest": {
+        "sha256": "9a790e8fb50959a5ec5b0d6430320989da9b3a2fddf856ea8a2fd719f80ab8f6"
+      }
+    },
+    {
+      "name": "guacrest-linux-amd64.spdx.sbom.json",
+      "digest": {
+        "sha256": "72fe787925e236d347bd5fa5986234c8d3fd5c62d5bf3caf54ba9835c18733a5"
+      }
+    },
+    {
+      "name": "guaccollect-linux-arm64.spdx.sbom.json",
+      "digest": {
+        "sha256": "04a80b2884e93676b78f1533c17e113a1b4f9f476acbe26c012bcde79c9116ae"
+      }
+    },
+    {
+      "name": "guaccsub-linux-arm64.spdx.sbom.json",
+      "digest": {
+        "sha256": "3740bf3ffb40cfe3700a01147a067fedf40b9ca43d3d34729ba484f75192f69c"
+      }
+    },
+    {
+      "name": "guacgql-linux-arm64.spdx.sbom.json",
+      "digest": {
+        "sha256": "e3865b71613ac1c56060438842a84770b2a0bcefe8dc981017a423ef066e4930"
+      }
+    },
+    {
+      "name": "guacingest-linux-arm64.spdx.sbom.json",
+      "digest": {
+        "sha256": "d0141a365d323b42f25f097772165b2a85aff088e1cf9d9c5b3f7eb7c4f97352"
+      }
+    },
+    {
+      "name": "guacone-linux-arm64.spdx.sbom.json",
+      "digest": {
+        "sha256": "b09b3bfa06676003aece33175b504a89594ddaed0c2888f612cd78e7be0b27f7"
+      }
+    },
+    {
+      "name": "guaccollect.spdx.sbom.json",
+      "digest": {
+        "sha256": "747d1f4780dc9d33784594d024d4a949a053afd88acb500531c9efc748de685a"
+      }
+    },
+    {
+      "name": "guacingest.spdx.sbom.json",
+      "digest": {
+        "sha256": "f8c1f6d1beff51a8482dccacc1d99203ab568246637a57df87c30046c864335d"
+      }
+    },
+    {
+      "name": "guacgql.spdx.sbom.json",
+      "digest": {
+        "sha256": "dc162a1f340b63cda95c69b4cc41016fb9e2e2aba99ec03930ce3cf9b7a832e8"
+      }
+    },
+    {
+      "name": "guacone.spdx.sbom.json",
+      "digest": {
+        "sha256": "817ff1edf24e5684eed6777d4947fa250a84cc3da349486f2037a6b45c18bc25"
+      }
+    },
+    {
+      "name": "guacrest-darwin-amd64.spdx.sbom.json",
+      "digest": {
+        "sha256": "cc41bc19f8aa9837fe88b1668b15097ca9e59ffa38cd6dd9866faf4a1beeb25e"
+      }
+    },
+    {
+      "name": "guaccsub-linux-arm.spdx.sbom.json",
+      "digest": {
+        "sha256": "c4c65311753be57a48c3297b6d9b001f6bd0add5787210de89dcd07c4de7e3fe"
+      }
+    },
+    {
+      "name": "guaccollect-linux-arm.spdx.sbom.json",
+      "digest": {
+        "sha256": "520d2c8445bd5716e421e814f1268ab3bb930355fc1a22ecaf6f4037bcca6ed9"
+      }
+    },
+    {
+      "name": "guacgql-linux-arm.spdx.sbom.json",
+      "digest": {
+        "sha256": "f560d6fe3f79f0d9a8b3d9798f85a2268160173db78adebcdffd29e433b3ff7e"
+      }
+    },
+    {
+      "name": "guacingest-linux-arm.spdx.sbom.json",
+      "digest": {
+        "sha256": "0dedb4f617c65ec209f1b8ec6d627e5c204cdf49b1d5661d4b430e02841b0120"
+      }
+    },
+    {
+      "name": "guacone-linux-arm.spdx.sbom.json",
+      "digest": {
+        "sha256": "207086df04a3859d4e25892f7ede2c005013421b42dac538c477169adbad9d55"
+      }
+    },
+    {
+      "name": "guacrest-linux-arm.spdx.sbom.json",
+      "digest": {
+        "sha256": "025dcd37a3b55f6a28c0a04410fa0692967bb719a1f2be8f1c4022415612f04a"
+      }
+    },
+    {
+      "name": "guacrest-linux-arm64.spdx.sbom.json",
+      "digest": {
+        "sha256": "267b6ef39995c1fd9b2f9acba523fb20b0fc78ff5a8008381520b488254fada3"
+      }
+    },
+    {
+      "name": "ghcr.io/guacsec/guac:v0.5.1-arm64",
+      "digest": {
+        "sha256": "a485acd76a074caab704f2b065d4c71d29be6b0d2fb508347f3a54c7941075dc"
+      }
+    },
+    {
+      "name": "ghcr.io/guacsec/guac:v0.5.1-amd64",
+      "digest": {
+        "sha256": "41161ed7d79e98a997bee7fa22d26a42bbad1b1bcf38719cb2441d26786b8d5d"
+      }
+    },
+    {
+      "name": "ghcr.io/guacsec/guac:v0.5.1",
+      "digest": {
+        "sha256": "af080e45d452929203c3a57219d2af6293eacf9bf905624ff555034cb0e7027c"
+      }
+    }
+  ],
+  "predicate": {
+    "builder": {
+      "id": "https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@refs/tags/v1.9.0"
+    },
+    "buildType": "https://github.com/slsa-framework/slsa-github-generator/generic@v1",
+    "invocation": {
+      "configSource": {
+        "uri": "git+https://github.com/guacsec/guac@refs/tags/v0.5.1",
+        "digest": {
+          "sha1": "1f9eb7cd915b212807f6dbb1de93f3b65a60af7f"
+        },
+        "entryPoint": ".github/workflows/release.yaml"
+      },
+      "parameters": {},
+      "environment": {
+        "github_actor": "jeffmendoza",
+        "github_actor_id": "771387",
+        "github_base_ref": "",
+        "github_event_name": "push",
+        "github_event_payload": {
+          "after": "1f9eb7cd915b212807f6dbb1de93f3b65a60af7f",
+          "base_ref": "refs/heads/main",
+          "before": "0000000000000000000000000000000000000000",
+          "commits": [],
+          "compare": "https://github.com/guacsec/guac/compare/v0.5.1",
+          "created": true,
+          "deleted": false,
+          "enterprise": {
+            "avatar_url": "https://avatars.githubusercontent.com/b/102459?v=4",
+            "created_at": "2023-12-08T05:54:26Z",
+            "description": "Open Source Security Foundation (OpenSSF)",
+            "html_url": "https://github.com/enterprises/openssf",
+            "id": 102459,
+            "name": "Open Source Security Foundation",
+            "node_id": "E_kgDOAAGQOw",
+            "slug": "openssf",
+            "updated_at": "2024-01-06T00:47:02Z",
+            "website_url": "https://openssf.org/"
+          },
+          "forced": false,
+          "head_commit": {
+            "author": {
+              "email": "jlm@jlm.name",
+              "name": "Jeff Mendoza",
+              "username": "jeffmendoza"
+            },
+            "committer": {
+              "email": "noreply@github.com",
+              "name": "GitHub",
+              "username": "web-flow"
+            },
+            "distinct": true,
+            "id": "1f9eb7cd915b212807f6dbb1de93f3b65a60af7f",
+            "message": "Remove empty depends_on that fails validation. (#1757)\n\nSigned-off-by: Jeff Mendoza <jlm@jlm.name>",
+            "timestamp": "2024-03-07T20:14:25Z",
+            "tree_id": "58b214a2544d4c0607cce2c14aa36506608f0022",
+            "url": "https://github.com/guacsec/guac/commit/1f9eb7cd915b212807f6dbb1de93f3b65a60af7f"
+          },
+          "organization": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/111393891?v=4",
+            "description": null,
+            "events_url": "https://api.github.com/orgs/guacsec/events",
+            "hooks_url": "https://api.github.com/orgs/guacsec/hooks",
+            "id": 111393891,
+            "issues_url": "https://api.github.com/orgs/guacsec/issues",
+            "login": "guacsec",
+            "members_url": "https://api.github.com/orgs/guacsec/members{/member}",
+            "node_id": "O_kgDOBqO8Yw",
+            "public_members_url": "https://api.github.com/orgs/guacsec/public_members{/member}",
+            "repos_url": "https://api.github.com/orgs/guacsec/repos",
+            "url": "https://api.github.com/orgs/guacsec"
+          },
+          "pusher": {
+            "email": "jlm@jlm.name",
+            "name": "jeffmendoza"
+          },
+          "ref": "refs/tags/v0.5.1",
+          "repository": {
+            "allow_forking": true,
+            "archive_url": "https://api.github.com/repos/guacsec/guac/{archive_format}{/ref}",
+            "archived": false,
+            "assignees_url": "https://api.github.com/repos/guacsec/guac/assignees{/user}",
+            "blobs_url": "https://api.github.com/repos/guacsec/guac/git/blobs{/sha}",
+            "branches_url": "https://api.github.com/repos/guacsec/guac/branches{/branch}",
+            "clone_url": "https://github.com/guacsec/guac.git",
+            "collaborators_url": "https://api.github.com/repos/guacsec/guac/collaborators{/collaborator}",
+            "comments_url": "https://api.github.com/repos/guacsec/guac/comments{/number}",
+            "commits_url": "https://api.github.com/repos/guacsec/guac/commits{/sha}",
+            "compare_url": "https://api.github.com/repos/guacsec/guac/compare/{base}...{head}",
+            "contents_url": "https://api.github.com/repos/guacsec/guac/contents/{+path}",
+            "contributors_url": "https://api.github.com/repos/guacsec/guac/contributors",
+            "created_at": 1654882087,
+            "custom_properties": {},
+            "default_branch": "main",
+            "deployments_url": "https://api.github.com/repos/guacsec/guac/deployments",
+            "description": "GUAC aggregates software security metadata into a high fidelity graph database.",
+            "disabled": false,
+            "downloads_url": "https://api.github.com/repos/guacsec/guac/downloads",
+            "events_url": "https://api.github.com/repos/guacsec/guac/events",
+            "fork": false,
+            "forks": 140,
+            "forks_count": 140,
+            "forks_url": "https://api.github.com/repos/guacsec/guac/forks",
+            "full_name": "guacsec/guac",
+            "git_commits_url": "https://api.github.com/repos/guacsec/guac/git/commits{/sha}",
+            "git_refs_url": "https://api.github.com/repos/guacsec/guac/git/refs{/sha}",
+            "git_tags_url": "https://api.github.com/repos/guacsec/guac/git/tags{/sha}",
+            "git_url": "git://github.com/guacsec/guac.git",
+            "has_discussions": false,
+            "has_downloads": true,
+            "has_issues": true,
+            "has_pages": false,
+            "has_projects": true,
+            "has_wiki": true,
+            "homepage": "https://guac.sh",
+            "hooks_url": "https://api.github.com/repos/guacsec/guac/hooks",
+            "html_url": "https://github.com/guacsec/guac",
+            "id": 502127166,
+            "is_template": false,
+            "issue_comment_url": "https://api.github.com/repos/guacsec/guac/issues/comments{/number}",
+            "issue_events_url": "https://api.github.com/repos/guacsec/guac/issues/events{/number}",
+            "issues_url": "https://api.github.com/repos/guacsec/guac/issues{/number}",
+            "keys_url": "https://api.github.com/repos/guacsec/guac/keys{/key_id}",
+            "labels_url": "https://api.github.com/repos/guacsec/guac/labels{/name}",
+            "language": "Go",
+            "languages_url": "https://api.github.com/repos/guacsec/guac/languages",
+            "license": {
+              "key": "apache-2.0",
+              "name": "Apache License 2.0",
+              "node_id": "MDc6TGljZW5zZTI=",
+              "spdx_id": "Apache-2.0",
+              "url": "https://api.github.com/licenses/apache-2.0"
+            },
+            "master_branch": "main",
+            "merges_url": "https://api.github.com/repos/guacsec/guac/merges",
+            "milestones_url": "https://api.github.com/repos/guacsec/guac/milestones{/number}",
+            "mirror_url": null,
+            "name": "guac",
+            "node_id": "R_kgDOHe3aPg",
+            "notifications_url": "https://api.github.com/repos/guacsec/guac/notifications{?since,all,participating}",
+            "open_issues": 134,
+            "open_issues_count": 134,
+            "organization": "guacsec",
+            "owner": {
+              "avatar_url": "https://avatars.githubusercontent.com/u/111393891?v=4",
+              "email": null,
+              "events_url": "https://api.github.com/users/guacsec/events{/privacy}",
+              "followers_url": "https://api.github.com/users/guacsec/followers",
+              "following_url": "https://api.github.com/users/guacsec/following{/other_user}",
+              "gists_url": "https://api.github.com/users/guacsec/gists{/gist_id}",
+              "gravatar_id": "",
+              "html_url": "https://github.com/guacsec",
+              "id": 111393891,
+              "login": "guacsec",
+              "name": "guacsec",
+              "node_id": "O_kgDOBqO8Yw",
+              "organizations_url": "https://api.github.com/users/guacsec/orgs",
+              "received_events_url": "https://api.github.com/users/guacsec/received_events",
+              "repos_url": "https://api.github.com/users/guacsec/repos",
+              "site_admin": false,
+              "starred_url": "https://api.github.com/users/guacsec/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/guacsec/subscriptions",
+              "type": "Organization",
+              "url": "https://api.github.com/users/guacsec"
+            },
+            "private": false,
+            "pulls_url": "https://api.github.com/repos/guacsec/guac/pulls{/number}",
+            "pushed_at": 1709844980,
+            "releases_url": "https://api.github.com/repos/guacsec/guac/releases{/id}",
+            "size": 10612,
+            "ssh_url": "git@github.com:guacsec/guac.git",
+            "stargazers": 1121,
+            "stargazers_count": 1121,
+            "stargazers_url": "https://api.github.com/repos/guacsec/guac/stargazers",
+            "statuses_url": "https://api.github.com/repos/guacsec/guac/statuses/{sha}",
+            "subscribers_url": "https://api.github.com/repos/guacsec/guac/subscribers",
+            "subscription_url": "https://api.github.com/repos/guacsec/guac/subscription",
+            "svn_url": "https://github.com/guacsec/guac",
+            "tags_url": "https://api.github.com/repos/guacsec/guac/tags",
+            "teams_url": "https://api.github.com/repos/guacsec/guac/teams",
+            "topics": [],
+            "trees_url": "https://api.github.com/repos/guacsec/guac/git/trees{/sha}",
+            "updated_at": "2024-03-07T20:11:34Z",
+            "url": "https://github.com/guacsec/guac",
+            "visibility": "public",
+            "watchers": 1121,
+            "watchers_count": 1121,
+            "web_commit_signoff_required": false
+          },
+          "sender": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/771387?v=4",
+            "events_url": "https://api.github.com/users/jeffmendoza/events{/privacy}",
+            "followers_url": "https://api.github.com/users/jeffmendoza/followers",
+            "following_url": "https://api.github.com/users/jeffmendoza/following{/other_user}",
+            "gists_url": "https://api.github.com/users/jeffmendoza/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/jeffmendoza",
+            "id": 771387,
+            "login": "jeffmendoza",
+            "node_id": "MDQ6VXNlcjc3MTM4Nw==",
+            "organizations_url": "https://api.github.com/users/jeffmendoza/orgs",
+            "received_events_url": "https://api.github.com/users/jeffmendoza/received_events",
+            "repos_url": "https://api.github.com/users/jeffmendoza/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/jeffmendoza/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/jeffmendoza/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/jeffmendoza"
+          }
+        },
+        "github_head_ref": "",
+        "github_ref": "refs/tags/v0.5.1",
+        "github_ref_type": "tag",
+        "github_repository_id": "502127166",
+        "github_repository_owner": "guacsec",
+        "github_repository_owner_id": "111393891",
+        "github_run_attempt": "1",
+        "github_run_id": "8194683284",
+        "github_run_number": "665",
+        "github_sha1": "1f9eb7cd915b212807f6dbb1de93f3b65a60af7f"
+      }
+    },
+    "metadata": {
+      "buildInvocationID": "8194683284-1",
+      "completeness": {
+        "parameters": true,
+        "environment": false,
+        "materials": false
+      },
+      "reproducible": false
+    },
+    "materials": [
+      {
+        "uri": "git+https://github.com/guacsec/guac@refs/tags/v0.5.1",
+        "digest": {
+          "sha1": "1f9eb7cd915b212807f6dbb1de93f3b65a60af7f"
+        }
+      }
+    ]
+  }
+}
