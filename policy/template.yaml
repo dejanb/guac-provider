@@ -19,17 +19,9 @@ spec:
           # send external data request
           response := external_data({"provider": "guac-provider", "keys": images})
 
-          response_with_error(response)
+          result := response.responses[_]
+          result[1] > 0
 
-          msg := sprintf("invalid response: %v", [response])
+          msg := sprintf("Image %v contains %v vulnerabilities", [result[0], result[1]])
         }
-
-        response_with_error(response) {
-          count(response.errors) > 0
-          errs := response.errors[_]
-          contains(errs[1], "_invalid")
-        }
-
-        response_with_error(response) {
-          count(response.system_error) > 0
-        }
+        
