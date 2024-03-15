@@ -5,6 +5,7 @@ metadata:
 spec:
   enforcementAction: deny
   match:
+    namespaces: ["default"]
     kinds:
       - apiGroups: ["apps"]
         kinds: ["Deployment"]

@@ -15,6 +15,8 @@ cd kusari-helm-charts
 
 git checkout update-guacrest
 
+helm dependency update ./charts/guac
+
 helm install guac ./charts/guac
 
 kubectl port-forward svc/graphql-server 8080:8080
@@ -25,9 +27,13 @@ cd artifact-ff
 
 git checkout issue-1734
 
-go run ./cmd/guacone collect files <path to cdx_vuln.json>
+go run ./cmd/guacone collect files ../../cdx_vuln.json
+go run ./cmd/guacone collect files ~/go/src/github.com/guacsec/guac-data/docs/cyclonedx/syft-cyclonedx-docker.io-library-bash.latest.json
+go run ./cmd/guacone collect files ~/go/src/github.com/guacsec/guac-data/docs/cyclonedx/syft-cyclonedx-docker.io-library-alpine.latest.json
+go run ./cmd/guacone collect files ../../guac-slsa-v0.5.json
 
-go run ./cmd/guacone collect files <guac-data/docs>
+# optional
+go run ./cmd/guacone collect files ~/go/src/github.com/guacsec/guac-data
 
 go run ./cmd/guacone certifier osv
 
@@ -52,7 +58,10 @@ helm install gatekeeper/gatekeeper  \
 ```
 docker build . -t ghcr.io/dejanb/guac-provider:latest
 
+# kind
 kind load docker-image ghcr.io/dejanb/guac-provider:latest --name kind
+# minikube
+minikube image load --overwrite ghcr.io/dejanb/guac-provider:latest
 
 kubectl apply -f manifest/deployment.yaml -n gatekeeper-system
 kubectl apply -f manifest/provider.yaml -n gatekeeper-system
@@ -67,11 +76,15 @@ kubectl apply -f policy/constraint.yaml
 
 * Try to run deployments
 ```
-kubectl apply -f policy/examples/valid.yaml
+kubectl apply -f policy/examples/vulnerable.yaml
+kubectl apply -f policy/examples/bad.yaml
+kubectl apply -f policy/examples/sbom.yaml
+kubectl apply -f policy/examples/slsa.yaml
 ```
 
 * Receive an validation failure
 ```
+
 Error from server (Forbidden): error when creating "policy/examples/valid.yaml": admission webhook "validation.gatekeeper.sh" denied the request: [guac] Image ghcr.io/guacsec/vul-image:latest@sha256:b6f1a6e034d40c240f1d8b0a3f5481aa0a315009f5ac72f736502939419c1855 contains 9 vulnerabilities
 ```
 
@@ -91,5 +104,8 @@ kubectl delete -f policy/constraint.yaml
 
 * Delete deployments
 ```
-kubectl delete -f policy/examples/valid.yaml
+kubectl delete -f policy/examples/vulnerable.yaml
+kubectl delete -f policy/examples/sbom.yaml
+kubectl delete -f policy/examples/bad.yaml
+kubectl apply -f policy/examples/slsa.yaml
 ```
