@@ -1,0 +1,8 @@
+apiVersion: v2
+description: A Helm chart for the guac data provider
+name: guac-data-provider
+version: 0.0.1
+home: https://github.com/dejanb/guac-provider
+sources:
+  - https://github.com/dejanb/guac-provider.git
+appVersion: 0.0.1

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guac-provider
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: guac-provider
+  template:
+    metadata:
+      labels:
+        run: guac-provider
+    spec:
+      containers:
+      - image: ghcr.io/dejanb/guac-provider:latest
+        imagePullPolicy: IfNotPresent
+        name: guac-provider
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 65532
+          runAsNonRoot: true
+          runAsUser: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        ports:
+        - containerPort: {{ .Values.port }}
+          protocol: TCP
+        {{- if .Values.clientCAFile }}
+        volumeMounts:
+        - name: gatekeeper-ca-cert
+          mountPath: /tmp/gatekeeper
+          readOnly: true
+        {{- end }}
+      serviceAccountName: guac-provider
+      restartPolicy: Always
+      nodeSelector:
+        kubernetes.io/os: linux
+      {{- if .Values.clientCAFile }}
+      volumes:
+      - name: gatekeeper-ca-cert
+        secret:
+          secretName: gatekeeper-webhook-server-cert
+          items:
+          - key: ca.crt
+            path: ca.crt
+      {{- end }}

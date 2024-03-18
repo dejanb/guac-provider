@@ -1,0 +1,8 @@
+apiVersion: externaldata.gatekeeper.sh/v1beta1
+kind: Provider
+metadata:
+  name: guac-provider
+spec:
+  url: https://guac-provider.gatekeeper-system:{{ .Values.port }}/validate
+  timeout: {{ .Values.provider.timeout }}
+  caBundle: {{ required "You must provide .Values.provider.tls.caBundle" .Values.provider.tls.caBundle }}

@@ -4,9 +4,9 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-GATEKEEPER_NAMESPACE=${GATEKEEPER_NAMESPACE:-gatekeeper-system}
-#REPO_ROOT=$(dirname "${BASH_SOURCE[0]}")/../../../..
-#cd "${REPO_ROOT}" || exit 1
+REPO_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
+cd "${REPO_ROOT}" || exit 1
+NAMESPACE=${NAMESPACE:-gatekeeper-system}
 
 generate() {
     # generate CA key and certificate
@@ -21,7 +21,7 @@ generate() {
     openssl x509 -req -extfile <(printf "subjectAltName=DNS:guac-provider.${GATEKEEPER_NAMESPACE}") -days 365 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt
 }
 
-#mkdir -p "${REPO_ROOT}/test/externaldata/dummy-provider/certs"
-#pushd "${REPO_ROOT}/test/externaldata/dummy-provider/certs"
+mkdir -p "${REPO_ROOT}/certs"
+pushd "${REPO_ROOT}/certs"
 generate
-#popd
+popd
