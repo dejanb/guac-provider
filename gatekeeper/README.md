@@ -23,4 +23,14 @@ kubectl get constraints -o yaml
 kubectl run nginx --image=nginx
 
 kubectl run nginx --image=nginx --labels=app=kubecon-2024
+
+kubectl get pods
+```
+
+* Cleanup 
+
+```
+kubectl delete pods nginx
+kubectl delete -f constraints/pods-must-have-app.yaml
+kubectl delete -f templates/k8srequiredlabels_template.yaml
 ```

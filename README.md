@@ -15,6 +15,10 @@ cd kusari-helm-charts
 
 git checkout update-guacrest
 
+# TODO
+#kubectl create namespace guac
+#kubectl ns guac
+
 helm dependency update ./charts/guac
 
 helm install guac ./charts/guac
@@ -56,13 +60,21 @@ helm install gatekeeper/gatekeeper  \
 
 * Build and install Guac provider
 ```
+# build image (if needed)
 docker build . -t ghcr.io/dejanb/guac-provider:latest
 
+# load image
 # kind
 kind load docker-image ghcr.io/dejanb/guac-provider:latest --name kind
 # minikube
 minikube image load --overwrite ghcr.io/dejanb/guac-provider:latest
 
+# if you need to update certificate
+./scripts/generate-tls-certificate.sh
+cat ca.crt | base64 | tr -d '\n'
+# now update manifest/provider.yaml
+
+# install provider
 kubectl apply -f manifest/deployment.yaml -n gatekeeper-system
 kubectl apply -f manifest/provider.yaml -n gatekeeper-system
 kubectl apply -f manifest/service.yaml -n gatekeeper-system
@@ -76,6 +88,7 @@ kubectl apply -f policy/constraint.yaml
 
 * Try to run deployments
 ```
+#kubectl ns default
 kubectl apply -f policy/examples/vulnerable.yaml
 kubectl apply -f policy/examples/bad.yaml
 kubectl apply -f policy/examples/sbom.yaml
