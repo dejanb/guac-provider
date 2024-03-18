@@ -21,7 +21,7 @@ import (
 
 const (
 	timeout    = 1 * time.Second
-	apiVersion = "externaldata.gatekeeper.sh/v1alpha1"
+	apiVersion = "externaldata.gatekeeper.sh/v1beta1"
 )
 
 var log logr.Logger
@@ -76,17 +76,16 @@ type Response struct {
 }
 
 func validate(w http.ResponseWriter, req *http.Request) {
-	log.Info("validate request received")
 	// only accept POST requests
 	if req.Method != http.MethodPost {
-		sendResponse(nil, "only POST is allowed", w)
+		//sendResponse(nil, "only POST is allowed", w)
 		return
 	}
 
 	// read request body
 	requestBody, err := io.ReadAll(req.Body)
 	if err != nil {
-		sendResponse(nil, fmt.Sprintf("unable to read request body: %v", err), w)
+		//sendResponse(nil, fmt.Sprintf("unable to read request body: %v", err), w)
 		return
 	}
 
@@ -94,7 +93,7 @@ func validate(w http.ResponseWriter, req *http.Request) {
 	var providerRequest externaldata.ProviderRequest
 	err = json.Unmarshal(requestBody, &providerRequest)
 	if err != nil {
-		sendResponse(nil, fmt.Sprintf("unable to unmarshal request body: %v", err), w)
+		//sendResponse(nil, fmt.Sprintf("unable to unmarshal request body: %v", err), w)
 		return
 	}
 
@@ -102,66 +101,66 @@ func validate(w http.ResponseWriter, req *http.Request) {
 	// iterate over all keys
 	for _, key := range providerRequest.Request.Keys {
 		// Providers should add a caching mechanism to avoid extra calls to external data sources.
-		log.Info("key received:" + key)
+		log.Info("Image received: " + key)
 
 		splitImage := strings.Split(key, "@")
 
 		if len(splitImage) != 2 {
 			log.Info("split failed")
-			sendResponse(nil, "split key failed", w)
+			//sendResponse(nil, "split key failed", w)
 			return
 		}
-		log.Info("split: " + splitImage[1])
+		log.Info("Image Digest: " + splitImage[1])
 		response, err := http.Get("http://rest-api.default.svc.cluster.local:8081/query/artInfo/" + url.QueryEscape(splitImage[1]))
 		if err != nil {
 			log.Error(err, "response error")
-			sendResponse(nil, fmt.Sprintf("ERROR getting response from GUAC: %v", err), w)
+			//sendResponse(nil, fmt.Sprintf("ERROR getting response from GUAC: %v", err), w)
 			return
 		}
 
 		responseData, err := io.ReadAll(response.Body)
 		if err != nil {
 			log.Error(err, "response read error")
-			sendResponse(nil, fmt.Sprintf("ERROR reading response data: %v", err), w)
+			//sendResponse(nil, fmt.Sprintf("ERROR reading response data: %v", err), w)
 			return
 		}
 
 		var responseObject Response
 		json.Unmarshal(responseData, &responseObject)
-		log.Info("responseObject returned")
 
 		if len(responseObject.Vulnerabilities) > 0 {
-			log.Info("found Vulnerabilities:" + strings.Join(responseObject.Vulnerabilities, ","))
+			log.Info("found Vulnerabilities: " + strings.Join(responseObject.Vulnerabilities, ","))
 			results = append(results, externaldata.Item{
 				Key:   key,
 				Value: len(responseObject.Vulnerabilities),
 			})
 		} else if len(responseObject.CertifyBads) > 0 {
-			log.Info("found CertifyBad:" + responseObject.CertifyBads[0])
+			log.Info("found CertifyBad: " + responseObject.CertifyBads[0])
 			results = append(results, externaldata.Item{
 				Key:   key,
 				Value: len(responseObject.CertifyBads),
 			})
 		} else if len(responseObject.SbomList) == 0 {
-			log.Info("SBOM not found")
+			log.Info("SBOM not found for image: " + key)
 			results = append(results, externaldata.Item{
 				Key:   key,
 				Value: 1,
 			})
 		} else if len(responseObject.SlsaList) == 0 {
-			log.Info("SLSA not found")
+			log.Info("SLSA not found for image: " + key)
 			results = append(results, externaldata.Item{
 				Key:   key,
 				Value: 1,
 			})
 		} else {
-			results = append(results, externaldata.Item{
-				Key:   key,
-				Value: 0,
-			})
+			log.Info("guac verified image: " + key)
+			// results = append(results, externaldata.Item{
+			// 	Key:   key,
+			// 	Value: -1,
+			// })
 		}
+		sendResponse(&results, "", w)
 	}
-	sendResponse(&results, "", w)
 }
 
 // sendResponse sends back the response to Gatekeeper.
@@ -182,7 +181,7 @@ func sendResponse(results *[]externaldata.Item, systemErr string, w http.Respons
 
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(response); err != nil {
-		panic(err)
+		panic(fmt.Errorf("failed to encode: %w", err))
 	}
 }
 

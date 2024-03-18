@@ -30,8 +30,8 @@ WORKDIR /
 
 COPY --from=builder /go/src/github.com/open-policy-agent/gatekeeper/test/externaldata/guac-provider/provider .
 
-COPY --from=builder --chown=65532:65532 /go/src/github.com/open-policy-agent/gatekeeper/test/externaldata/guac-provider/server.crt \
-    /go/src/github.com/open-policy-agent/gatekeeper/test/externaldata/guac-provider/server.key \
+COPY --from=builder --chown=65532:65532 /go/src/github.com/open-policy-agent/gatekeeper/test/externaldata/guac-provider/certs/server.crt \
+    /go/src/github.com/open-policy-agent/gatekeeper/test/externaldata/guac-provider/certs/server.key \
     /etc/ssl/certs/
 
 USER 65532:65532
