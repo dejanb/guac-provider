@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sbom-deployment
+  name: good-deployment
   labels:
-    app: sbom-deployment
+    app: good-deployment
 spec:
   replicas: 0 # testing purposes only
   selector:
     matchLabels:
-      app: sbom-deployment
+      app: good-deployment
   template:
     metadata:
       labels:
-        app: sbom-deployment
+        app: good-deployment
     spec:
       containers:
       - name: good
-        image: ghcr.io/guacsec/guac@sha256:0ea6c5ec80900ad1b96c604f9311b2335292a35d6ff1b9d955354d66ce0216c5
+        image: ghcr.io/guacsec/guac@sha256:af080e45d452929203c3a57219d2af6293eacf9bf905624ff555034cb0e7027c

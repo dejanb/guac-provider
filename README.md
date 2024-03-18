@@ -1,14 +1,21 @@
-* Create Kind Cluster
+# guac Data Provider
 
-If you have go 1.16+ and docker, podman or nerdctl installed `go install sigs.k8s.io/kind@v0.22.0` && `kind create cluster` is all you need!
+A repository for using guac as a data provider for Gatekeeper.
 
+## Prerequisites
 
-* Setup GUAC
+- [`docker`](https://docs.docker.com/get-docker/)
+- [`kind`](https://kind.sigs.k8s.io/)
+- [`helm`](https://helm.sh/)
+- [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
-cdx_vuln.json is attached to this repo
+## Quick Start
 
-```
+1. Create a [kind cluster](https://kind.sigs.k8s.io/docs/user/quick-start/).
 
+1.  Setup GUAC
+
+```bash
 git clone git@github.com:pxp928/kusari-helm-charts.git
 
 cd kusari-helm-charts
@@ -41,14 +48,15 @@ go run ./cmd/guacone collect files ~/go/src/github.com/guacsec/guac-data
 
 go run ./cmd/guacone certifier osv
 
+go run ./cmd/guacone collect files ../guac-data/cdx_guac.json
+
 go run ./cmd/guacone certify package "critical vulnerability reported by maintainer" "pkg:alpine/alpine-baselayout@3.2.0-r18?arch=x86_64&upstream=alpine-baselayout&distro=alpine-3.15.6"
-
 ```
 
+1. Install the latest version of Gatekeeper and enable the external data feature.
 
-
-* Install Gatekeeper
-```
+```bash
+# Install the latest version of Gatekeeper with the external data feature enabled.
 helm repo add gatekeeper https://open-policy-agent.github.io/gatekeeper/charts
 helm install gatekeeper/gatekeeper  \
     --name-template=gatekeeper \
@@ -57,68 +65,55 @@ helm install gatekeeper/gatekeeper  \
     --set controllerManager.dnsPolicy=ClusterFirst,audit.dnsPolicy=ClusterFirst
 ```
 
+1. Build and deploy the guac data provider.
 
-* Build and install Guac provider
-```
-# build image (if needed)
+```bash
+git clone https://github.com:dejanb/guac-provider.git
+cd guac-provider
+
+# generate a self-signed certificate for the guac data provider
+./scripts/generate-tls-certificate.sh
+
+# build the image via docker 
 docker build . -t ghcr.io/dejanb/guac-provider:latest
 
-# load image
-# kind
+# load the image into kind
 kind load docker-image ghcr.io/dejanb/guac-provider:latest --name kind
-# minikube
-minikube image load --overwrite ghcr.io/dejanb/guac-provider:latest
 
-# if you need to update certificate
-./scripts/generate-tls-certificate.sh
-cat ca.crt | base64 | tr -d '\n'
-# now update manifest/provider.yaml
-
-# install provider
-kubectl apply -f manifest/deployment.yaml -n gatekeeper-system
-kubectl apply -f manifest/provider.yaml -n gatekeeper-system
-kubectl apply -f manifest/service.yaml -n gatekeeper-system
+# Install guac data provider into gatekeeper-system to use mTLS
+helm install guac-provider charts/guac-provider \
+    --set provider.tls.caBundle="$(cat certs/ca.crt | base64 | tr -d '\n\r')" \
+    --namespace gatekeeper-system
 ```
 
-* Apply resources
-```
+1. Install constraint template and constraint.
+
+```bash
 kubectl apply -f policy/template.yaml
 kubectl apply -f policy/constraint.yaml
 ```
 
-* Try to run deployments
-```
-#kubectl ns default
-kubectl apply -f policy/examples/vulnerable.yaml
-kubectl apply -f policy/examples/bad.yaml
-kubectl apply -f policy/examples/sbom.yaml
-kubectl apply -f policy/examples/slsa.yaml
+1. Check the logs for the guac-provider
+```bash
+kubectl logs -n gatekeeper-system deployments/guac-provider -f
 ```
 
-* Receive an validation failure
+1. Examples
+```
+kubectl create ns test
+kubectl apply -f policy/examples/vulnerable.yaml -n test
+kubectl apply -f policy/examples/bad.yaml -n test
+kubectl apply -f policy/examples/sbom.yaml -n test
+kubectl apply -f policy/examples/slsa.yaml -n test
+kubectl apply -f policy/examples/good.yaml -n test
 ```
 
-Error from server (Forbidden): error when creating "policy/examples/valid.yaml": admission webhook "validation.gatekeeper.sh" denied the request: [guac] Image ghcr.io/guacsec/vul-image:latest@sha256:b6f1a6e034d40c240f1d8b0a3f5481aa0a315009f5ac72f736502939419c1855 contains 9 vulnerabilities
-```
+1. Delete
 
-* Delete
-```
-kubectl delete -f manifest/deployment.yaml -n gatekeeper-system
-kubectl delete -f manifest/provider.yaml -n gatekeeper-system
-kubectl delete -f manifest/service.yaml -n gatekeeper-system
-```
+```bash
+kubectl delete -f policy/
 
-* Delete resources
-```
-kubectl delete -f policy/template.yaml
-kubectl delete -f policy/constraint.yaml
-```
-
-
-* Delete deployments
-```
-kubectl delete -f policy/examples/vulnerable.yaml
-kubectl delete -f policy/examples/sbom.yaml
-kubectl delete -f policy/examples/bad.yaml
-kubectl apply -f policy/examples/slsa.yaml
+helm uninstall guac
+helm uninstall guac-provider --namespace gatekeeper-system
+helm uninstall gatekeeper --namespace gatekeeper-system
 ```

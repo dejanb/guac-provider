@@ -6,7 +6,7 @@ set -o pipefail
 
 REPO_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 cd "${REPO_ROOT}" || exit 1
-NAMESPACE=${NAMESPACE:-gatekeeper-system}
+GATEKEEPER_NAMESPACE=${NAMESPACE:-gatekeeper-system}
 
 generate() {
     # generate CA key and certificate
