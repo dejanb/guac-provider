@@ -20,7 +20,7 @@ import (
 )
 
 const (
-	timeout    = 1 * time.Second
+	timeout    = 10 * time.Second
 	apiVersion = "externaldata.gatekeeper.sh/v1beta1"
 )
 
@@ -37,7 +37,7 @@ func main() {
 	// load Gatekeeper's CA certificate
 	caCert, err := os.ReadFile("/tmp/gatekeeper/ca.crt")
 	if err != nil {
-		log.Info("error reading file", err)
+		log.Info("error reading file" + err.Error())
 		panic(err)
 	}
 
